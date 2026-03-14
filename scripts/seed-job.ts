@@ -1,5 +1,3 @@
-// Чтобы запустить скрипт npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-job.ts
-//*****************/
 import * as dotenv from "dotenv";
 import * as https from "https";
 
@@ -23,466 +21,717 @@ interface Job {
   skills: string[];
   salary_min: number | null;
   salary_max: number | null;
+  salary_currency?: string;
   contact_tg: string;
+  contact_email?: string;
+  contact_phone?: string;
   created_by: string;
+  source_url?: string;
 }
 
 const jobs: Job[] = [
+  // ============ FRONTEND JOBS ============
+  // Из FRONTEND_JOBS_BAZA.docx
+  {
+    title: "Frontend Developer (React)",
+    company: "4finance",
+    description:
+      "Frontend developer для компании 4finance Казахстан с удаленным форматом работы. Разработка новых пользовательских интерфейсов с использованием React.js, взаимодействие с другими командами (UX, back-end, data science, PO), создание переиспользуемых компонентов и библиотек.",
+    responsibilities:
+      "— Разработка новых пользовательских интерфейсов с использованием React.js\n— Взаимодействие с другими командами (UX, back-end, data science, PO и др.)\n— Создание переиспользуемых компонентов и библиотек для дальнейшего использования\n— Перевод дизайнов и макетов в высококачественный код\n— Оптимизация компонентов для обеспечения максимальной производительности на различных устройствах и браузерах\n— Участие во всех этапах разработки в рамках agile-проектов",
+    requirements:
+      "— Свободный английский (от B2)\n— Опыт работы Frontend разработчиком от 3х лет\n— Глубокие знания React.js и его экосистемы (Redux, server-side rendering, Node.js)\n— Опыт работы с Redux, Webpack, Yarn\n— Навыки работы с headless CMS\n— Опыт взаимодействия с REST API\n— Умение создавать переиспользуемые компоненты и библиотеки\n— Знание системы контроля версий GIT\n— Будет плюсом: опыт работы с Webflow, React Native, Jest, Cypress.io, TypeScript",
+    location: "Казахстан",
+    experience_level: "middle",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "React",
+      "Redux",
+      "Node.js",
+      "Webpack",
+      "Yarn",
+      "Git",
+      "TypeScript",
+      "Jest",
+      "Cypress",
+      "REST API",
+    ],
+    salary_min: 2700,
+    salary_max: 3000,
+    salary_currency: "EUR",
+    contact_tg: "Alyona_ITHR",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2831",
+  },
+  {
+    title: "Руководитель Frontend",
+    company: "EdTech компания",
+    description:
+      "Руководитель группы frontend в IT компанию в сфере EdTech. Проектирование архитектуры фронтенда, организация разработки продуктовых фич и компонентов.",
+    responsibilities:
+      "— Проектирование архитектуры фронтенда\n— Организация разработки продуктовых фич и компонентов\n— Управление командами разработки на React и Vue: планирование спринтов и релизов, распределение задач, оценка сроков\n— Уточнение задач от бизнеса\n— Документирование процессов и архитектуры\n— Оптимизация производительности систем и рефакторинг кода\n— Обеспечение качества кода, контроль качества ревью, контроль покрытия кода тестами\n— Взаимодействие со смежными командами",
+    requirements:
+      "— Опыт коммерческой разработки на Frontend от 5 лет, уверенные навыки проектирования архитектуры frontend приложений\n— Опыт руководства командой разработки от 2 лет\n— Уверенное владение JS, TS, React.js, Vue.js\n— Знание JS-инструментов тестирования\n— Глубокое понимание RESTful API\n— Опыт написания понятной документации\n— Способность эффективно взаимодействовать с бизнесом\n— Отличные лидерские и коммуникативные навыки",
+    location: "Москва",
+    experience_level: "lead",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Vue",
+      "REST API",
+      "Team Leadership",
+    ],
+    salary_min: 300000,
+    salary_max: null,
+    salary_currency: "RUB",
+    contact_tg: "DinaGet",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2836",
+  },
+  {
+    title: "Middle Frontend Engineer",
+    company: "Veranto.tech",
+    description:
+      "Middle Frontend Engineer (React / TypeScript / FSD / SPA Dockerized) в R&D-отдел (FinTech, внутренние платежи, кроссбордер).",
+    responsibilities:
+      "— Фронтенды для внутренних финтех-систем и платёжных конструкторов\n— Архитектура по FSD (модули, слои, контракты)\n— Сложные формы, валидации, синхронизация с REST API\n— Инфраструктура фронта (линтеры, docker, тесты)",
+    requirements:
+      "— 2+ года опыта на React + TS\n— Отличное знание hooks, TS-типизации, Zustand/RHF/Yup\n— Опыт с react-query / tanstack, REST API\n— Навыки настройки Vite, линтеров, Vitest/RTL\n— Будет плюсом: Next.js, k8s, Storybook, e2e-тесты, GitLab CI, WebSocket/Streaming API",
+    location: "Москва (Сколково)",
+    experience_level: "middle",
+    job_type: "full-time",
+    format: "hybrid",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "React",
+      "TypeScript",
+      "FSD",
+      "Vite",
+      "Vitest",
+      "Zustand",
+      "React Hook Form",
+      "Yup",
+      "SASS",
+      "Next.js",
+      "Docker",
+      "Nginx",
+      "Storybook",
+    ],
+    salary_min: 268000,
+    salary_max: null,
+    salary_currency: "RUB",
+    contact_tg: "yanaapon",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2837",
+  },
+  {
+    title: "Front-End разработчик",
+    company: "Частный проект",
+    description:
+      "На частный проект — сайт знакомств с чатом — требуется Front-End разработчик для постоянного сотрудничества. Проект уже готов, требуется поддержка, доработка интерфейса и развитие новых функций.",
+    responsibilities:
+      "— Поддержка и развитие фронтенда\n— Внесение косметических правок (UI/UX)",
+    requirements: "— Опыт работы с Next.js, NestJS, JavaScript, React",
+    location: "Удаленно",
+    experience_level: "middle",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: ["Next.js", "NestJS", "JavaScript", "React"],
+    salary_min: 100,
+    salary_max: null,
+    salary_currency: "USD",
+    contact_tg: "blagobiy1",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2838",
+  },
+  {
+    title: "Фронтендер-стажер",
+    company: "Студия Артемия Лебедева",
+    description:
+      "Команде собственных цифровых продуктов студии нужны фронтендеры-стажеры. Стажировка начнется зимой и продлится 3–6 месяцев. Кандидатам нужно быть крайне внимательными к деталям и справляться с проектами уровня «пиксель-перфект».",
+    responsibilities: "— Справляться с проектами уровня «пиксель-перфект»",
+    requirements:
+      "— Знание HTML, CSS, JavaScript и Git\n— Хороший уровень владения Vue.js\n— Умение создать и развернуть сборку на Docker\n— Будет плюсом: опыт коммерческой разработки",
+    location: "Москва",
+    experience_level: "intern",
+    job_type: "internship",
+    format: "hybrid",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: ["HTML", "CSS", "JavaScript", "Git", "Vue", "Docker"],
+    salary_min: 60000,
+    salary_max: 100000,
+    salary_currency: "RUB",
+    contact_tg: "careerHR_Kate",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2839",
+  },
+  {
+    title: "Senior Front-End Developer",
+    company: "Planet 9 Group Corp",
+    description:
+      "International company looking for a highly experienced Front-End Developer to strengthen the team, improve the development process and contribute to the success of FinTech products.",
+    responsibilities:
+      "— Strengthen the development team\n— Improve the development process\n— Contribute to the success of FinTech products",
+    requirements:
+      "— 7+ years of experience as a front-end developer\n— Experience with React and its ecosystem for at least 6 years, solid Typescript experience\n— Next.js/Tanstack Start experience\n— Understanding the principles of developing adaptive and responsive design\n— Strong knowledge of JavaScript, WebSocket and API integration\n— Experience building interfaces for high-frequency, data-driven applications\n— Ability to balance independent work with cross-functional collaboration\n— Experience in application deployment, Gitlab/Docker\n— English – B2+, fluent reading of technical documentation",
+    location: "Удаленно",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "TanStack",
+      "JavaScript",
+      "WebSocket",
+      "GitLab",
+      "Docker",
+    ],
+    salary_min: null,
+    salary_max: null,
+    contact_tg: "TatiPashkova",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2841",
+  },
+  {
+    title: "Fullstack Developer",
+    company: "Luna Capital",
+    description:
+      "Проект связан с разработкой внутренних и внешних веб-приложений. Команда использует современный стек технологий для создания интерфейсов и бизнес-логики, обеспечивая стабильность и масштабируемость решений.",
+    responsibilities:
+      "— Разрабатывать веб-приложения и программное обеспечение на фронтенде и бэкенде\n— Работать с базами данных и писать SQL-запросы (T-SQL, PL/SQL)\n— Создавать интерактивные интерфейсы с использованием HTML, JavaScript и фреймворков JQuery, ExtJS, Kendo UI\n— Разрабатывать и поддерживать программы на OScript, C# или Java",
+    requirements:
+      "— Опыт разработки на Fullstack уровня Senior\n— Отличное знание SQL, HTML, JavaScript\n— Опыт работы с фронтенд-фреймворками: JQuery, ExtJS, Kendo UI\n— Опыт разработки на OScript, C# или Java\n— Опыт работы с T-SQL и PL/SQL",
+    location: "Москва",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "fullstack",
+    skills: [
+      "HTML",
+      "JavaScript",
+      "JQuery",
+      "ExtJS",
+      "Kendo UI",
+      "SQL",
+      "T-SQL",
+      "PL/SQL",
+      "OScript",
+      "C#",
+      "Java",
+    ],
+    salary_min: 220000,
+    salary_max: null,
+    salary_currency: "RUB",
+    contact_tg: "recruiter_vv",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2842",
+  },
+  {
+    title: "Senior React / Next.js Developer",
+    company: "romanov.team",
+    description:
+      "Продуктовая разработка от торговых бирж до игровых приложений в Telegram. Среди проектов — RFL PRO с аудиторией более 2 млн пользователей. Нужен разработчик, который не просто пишет код, а понимает бизнес-задачи и влияет на продукт.",
+    responsibilities:
+      "— Разрабатывать и поддерживать веб-интерфейсы на React / Next.js\n— Оптимизировать производительность и рендеринг\n— Работать с API и интеграциями\n— Участвовать в проработке бизнес-логики и влиять на развитие продукта",
+    requirements:
+      "— Уверенные знания React, Next.js, TypeScript\n— Опыт адаптивной и кроссбраузерной вёрстки\n— Понимание принципов оптимизации фронтенда\n— Готовность глубоко погружаться в продукт и бизнес-задачи",
+    location: "Санкт-Петербург",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "hybrid",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: ["React", "Next.js", "TypeScript"],
+    salary_min: null,
+    salary_max: null,
+    contact_tg: "suli_airen",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2843",
+  },
+  {
+    title: "Senior JavaScript Developer",
+    company: "Top Selection",
+    description:
+      "Senior JavaScript Developer для группы компаний Top Selection. Удаленная работа с оформлением по ИП.",
+    responsibilities:
+      "— Доработка текущего кода\n— Разработка UI-интерфейсов\n— Написание собственных компонентов\n— Разработка компонент видеопроигрывания\n— Верстка согласно макетам в Figma",
+    requirements:
+      "— Общий опыт frontend-разработки от 6-и лет\n— Знание TypeScript, JavaScript, Angular 2+, RxJS\n— Знание HTML5, CSS3\n— Опыт работы с REST веб-сервисами\n— Понимание шаблонов web-проектирования и умение их правильно применять\n— Умение разрабатывать адаптивные кросс-браузерные кросс-платформенные web-интерфейсы\n— Опыт работы с BFF, NestJS",
+    location: "Москва",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "JavaScript",
+      "TypeScript",
+      "Angular",
+      "RxJS",
+      "HTML5",
+      "CSS3",
+      "REST",
+      "BFF",
+      "NestJS",
+      "Figma",
+    ],
+    salary_min: 250000,
+    salary_max: 280000,
+    salary_currency: "RUB",
+    contact_tg: "parfenov_mm",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2844",
+  },
+  {
+    title: "React Junior разработчик",
+    company: "Минская IT компания",
+    description:
+      "В поисках начинающего амбициозного разработчика для работы над интерфейсами и интеграцией API.",
+    responsibilities:
+      "— Разработка интерфейсов\n— Интеграции API с внешними сервисами\n— Развитие и разработка новых функциональных возможностей в проекте\n— Повышение отказоустойчивости и масштабируемости",
+    requirements:
+      "— Опыт работы в IT сфере - не менее 6 месяцев на стеке React\n— Знание и понимание MVC архитектуры\n— Знание фреймворка Reactjs\n— Знания TypeScript\n— Понимание основ Веб-технологий\n— Опыт работы с React + Typescript + Redux/Zustand\n— Обязательное условие находится в городе Минск",
+    location: "Минск",
+    experience_level: "junior",
+    job_type: "full-time",
+    format: "hybrid",
+    sphere: "development",
+    sub_sphere: "frontend",
+    skills: [
+      "React",
+      "TypeScript",
+      "Redux",
+      "Zustand",
+      "Next.js",
+      "Tailwind",
+      "Git",
+    ],
+    salary_min: 600,
+    salary_max: 1000,
+    salary_currency: "USD",
+    contact_tg: "jsconstructor",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/2853",
+  },
+
+  // ============ NODE.JS JOBS ============
+  // Из NODE_JS_BAZA.docx
+  {
+    title: "Full-stack Developer (Node.js/React)",
+    company: "KVAN",
+    description:
+      "Платформа для медицинских организаций для создания и отправки электронных рецептов в аптеки. Разрабатывается для рынка США.",
+    responsibilities:
+      "— Поддержка старого кода\n— Доработка архитектуры\n— Тестирование\n— Оптимизация\n— Добавление нового функционала на Node.js/Express (JS) и React 19 (TS, MobX, Tailwind CSS)",
+    requirements:
+      "— 5+ лет опыта работы с Node.js/React\n— Уверенные знания Node.js, Express, Sequelize\n— Опыт с брокерами сообщений (Node Resque, RabbitMQ)\n— Опыт с Docker, SQL, REST API\n— Уверенные знания HTML, CSS, JavaScript, TypeScript, React, MobX\n— Опыт с Tailwind CSS, Git, GitLab\n— Способность читать техническую документацию на английском",
+    location: "Удаленно",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "fullstack",
+    skills: [
+      "Node.js",
+      "Express",
+      "Sequelize",
+      "Docker",
+      "SQL",
+      "REST",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "MobX",
+      "Tailwind",
+      "Git",
+      "GitLab",
+      "AWS",
+      "XML",
+      "RabbitMQ",
+    ],
+    salary_min: 3200,
+    salary_max: 4000,
+    salary_currency: "USD",
+    contact_tg: "yanaapon",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+  {
+    title: "Node.js Backend Developer",
+    company: "ArbiHunter",
+    description:
+      "HR-платформа в High-risk сфере, развиваем экосистему проектов, объединяя бизнес и специалистов для масштабирования. Переходим на микросервисы с NATS, Prisma и Zod.",
+    responsibilities:
+      "— Разработка REST API на NestJS (Clean Architecture, DDD, CQRS)\n— Интеграция OAuth, платежей, email/push, webhooks\n— Миграция монолита в микросервисы (event-driven)\n— Работа с асинхронными процессами и очередями\n— Модернизация стека: Prisma, Zod",
+    requirements:
+      "— 5+ лет коммерческой разработки, 2+ года с NestJS\n— Уверенный TypeScript (generics, decorators)\n— Опыт REST API, PostgreSQL, ORM (TypeORM/Prisma), Redis\n— Понимание Clean Architecture, DDD, CQRS, Event-Driven\n— Опыт OAuth, webhooks, retry/error handling\n— Docker, Git, Jest",
+    location: "Удаленно",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "backend",
+    skills: [
+      "NestJS",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Zod",
+      "Redis",
+      "Docker",
+      "Jest",
+      "NATS",
+      "RabbitMQ",
+      "Kafka",
+      "DDD",
+      "CQRS",
+    ],
+    salary_min: 2500,
+    salary_max: 3500,
+    salary_currency: "USDT",
+    contact_tg: "AnnaR_arbihunter",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+  {
+    title: "Node.js Backend Engineer",
+    company: "Startlife",
+    description:
+      "B2C мобильное приложение в сфере mental wellbeing & micro-learning. Основные рынки — US/UK. Ранний стартап с быстрыми итерациями и маркетинг-фокусом.",
+    responsibilities:
+      "— Развитие backend-архитектуры на Node.js\n— Проектирование API для мобильного приложения\n— Реализация subscription-логики (event-driven, webhooks)\n— Интеграции с внешними API\n— Поддержка A/B тестов и аналитики\n— Обеспечение стабильности backend",
+    requirements:
+      "— 4+ лет коммерческого backend опыта\n— Уверенный production опыт с Node.js\n— Опыт API разработки для B2C mobile apps\n— Понимание subscription / in-app purchase моделей\n— Опыт event-driven архитектуры\n— Способность принимать архитектурные решения",
+    location: "ОАЭ",
+    experience_level: "senior",
+    job_type: "part-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "backend",
+    skills: [
+      "Node.js",
+      "API Design",
+      "Event-Driven Architecture",
+      "Subscriptions",
+      "Webhooks",
+    ],
+    salary_min: 30,
+    salary_max: 50,
+    salary_currency: "USD",
+    contact_tg: "m1_robot",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+  {
+    title: "Senior Node.js Developer",
+    company: "GGR Global",
+    description:
+      "Архитектура и разработка highload платформы в сфере GamblingTech.",
+    responsibilities:
+      "— Архитектура и разработка highload платформы\n— Настройка и оптимизация баз данных\n— Поддержка CI/CD процессов\n— Анализ и оптимизация производительности\n— Обеспечение безопасности платформы\n— Использование современных подходов и AI-инструментов",
+    requirements:
+      "— Опыт Node.js от 5 лет\n— Знание Fastify, NestJS\n— Опыт с PostgreSQL, MySQL\n— Работа с RabbitMQ, Kafka, Nats\n— Опыт Docker, Kubernetes\n— Знание Redis, Memcached",
+    location: "Удаленно",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "backend",
+    skills: [
+      "Node.js",
+      "Fastify",
+      "NestJS",
+      "PostgreSQL",
+      "MySQL",
+      "RabbitMQ",
+      "Kafka",
+      "NATS",
+      "Docker",
+      "Kubernetes",
+      "Redis",
+      "Memcached",
+    ],
+    salary_min: 3000,
+    salary_max: 6000,
+    salary_currency: "USD",
+    contact_tg: "Alisa_GGR_HR",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+  {
+    title: "Backend Developer (Node.js/TypeScript)",
+    company: "Eshe App",
+    description:
+      "Разработка и развитие backend-сервисов для мобильного приложения. Требуется высокая автономность и готовность решать сложные нестандартные задачи.",
+    responsibilities:
+      "— Разработка и развитие backend-сервисов на Node.js / TypeScript (NestJS)\n— Проектирование и реализация API и межсервисных взаимодействий\n— Работа с асинхронными сценариями (RabbitMQ)\n— Использование Redis для кэширования и pub/sub\n— Работа с базами данных MySQL, MongoDB, DynamoDB\n— Работа с облачной инфраструктурой AWS\n— Деплой и эксплуатация сервисов в Kubernetes",
+    requirements:
+      "— Опыт Backend-разработки от 6 лет, highload сервисов от 2 лет\n— Опыт работы с Node.js от 5 лет в продуктовых компаниях\n— Опыт работы с TypeScript и NestJS от 4 лет\n— Опыт работы с MySQL, Redis, MongoDB, DynamoDB\n— Опыт работы с Kubernetes и AWS (EKS, RDS, DynamoDB, S3)\n— Опыт с распределёнными системами\n— Опыт использования LLM для работы обязательно",
+    location: "Москва",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "backend",
+    skills: [
+      "Node.js",
+      "TypeScript",
+      "NestJS",
+      "RabbitMQ",
+      "Redis",
+      "MySQL",
+      "MongoDB",
+      "DynamoDB",
+      "Elasticsearch",
+      "Kubernetes",
+      "Docker",
+      "AWS",
+    ],
+    salary_min: 200000,
+    salary_max: 250000,
+    salary_currency: "RUB",
+    contact_tg: "trixy1606",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+  {
+    title: "Senior Fullstack Developer (Node.js/React/AI)",
+    company: "Unimatch Lab",
+    description:
+      "Разработка AI-продуктов с нуля и масштабирование продакшн-систем в венчурной студии из Silicon Valley.",
+    responsibilities:
+      "— Разрабатывать backend и frontend продуктов с нуля до продакшена\n— Проектировать архитектуру (масштабируемость, отказоустойчивость, безопасность)\n— Интегрировать AI/LLM в реальные продукты\n— Настраивать CI/CD, Docker, мониторинг\n— Влиять на технические и продуктовые решения",
+    requirements:
+      "— Backend: TypeScript, Node.js (5+ лет), NestJS, микросервисы, event-driven (WebSocket, BullMQ / Redis / Kafka)\n— Frontend: React 18+/19, hooks, concurrent features\n— State/Data: TanStack Query / RTK / MobX / Zustand\n— DB: PostgreSQL, Supabase / PlanetScale\n— Infra: Docker, CI/CD, мониторинг (Prometheus, Grafana, Sentry)\n— API: REST / GraphQL, OAuth2, JWT, платежи\n— AI (must have): LLM orchestration (RAG), prompt engineering",
+    location: "США",
+    experience_level: "senior",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "development",
+    sub_sphere: "fullstack",
+    skills: [
+      "TypeScript",
+      "Node.js",
+      "NestJS",
+      "React",
+      "PostgreSQL",
+      "Supabase",
+      "PlanetScale",
+      "Docker",
+      "Prometheus",
+      "Grafana",
+      "Sentry",
+      "GraphQL",
+      "Kubernetes",
+      "BullMQ",
+      "Redis",
+      "Kafka",
+      "LLM",
+      "RAG",
+    ],
+    salary_min: 4500,
+    salary_max: null,
+    salary_currency: "USD",
+    contact_tg: "dobysh_v",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из NODE_JS_BAZA)",
+  },
+
+  // ============ UX/UI JOBS ============
+  // Из UX_XU_BAZa.docx
   {
     title: "UX/UI-дизайнер",
     company: "SellerGroup",
     description:
-      "Дизайн интерфейсов для eCommerce платформы. Работа с Material Design и Human Interface Guidelines, проведение UX-исследований, создание адаптивных макетов с Auto Layout.",
+      "Международная экосистема для селлеров и предпринимателей ищет UX/UI-дизайнера, который готов влиять на продукт, метрики и пользовательский опыт.",
     responsibilities:
-      "— Разработка UI-компонентов в Figma\n— Проведение UX-исследований и интервью\n— Создание адаптивных макетов с Auto Layout\n— Взаимодействие с командой разработки",
+      "— Проектирование и оптимизация пользовательских сценариев для логичного и интуитивного взаимодействия с продуктом\n— Разработка продукта и UI-кита с нуля, дальнейшее масштабирование дизайн-системы\n— Повышение конверсии и вовлечённости пользователей: формирование и тестирование гипотез, работа с аналитикой, внедрение эффективных UX/UI-решений\n— Выявление проблемных зон в пользовательском опыте и предложение дизайн-решений\n— Совместная работа с командой над развитием продукта",
     requirements:
-      "— Опыт работы в продуктовой команде от 1 года\n— Уверенное владение Figma\n— Понимание Material Design и HIG\n— Портфолио с кейсами eCommerce",
+      "— Проектирование дизайна сайтов и приложений с учётом адаптивности и требований платформ\n— Уверенное владение Figma (компоненты, стили, Auto Layout)\n— Знание material3 и human interface\n— Навыки пользовательских исследований, выявления болевых точек и предложения эффективных решений\n— Понимание принципов юзабилити\n— Умение работать с типографикой, сетками и композицией\n— Умение переводить бизнес-цели в UX/UI-решения",
     location: "Санкт-Петербург",
     experience_level: "junior",
     job_type: "full-time",
     format: "office",
     sphere: "design",
-    sub_sphere: "design_product",
+    sub_sphere: "ux_ui",
     skills: [
       "Figma",
       "Material Design",
       "Human Interface",
       "UX Research",
-      "Auto Layout",
+      "UI Design",
+      "User Scenarios",
     ],
     salary_min: null,
     salary_max: null,
     contact_tg: "HRSellerGroup",
     created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из UX_XU_BAZa)",
   },
   {
-    title: "Backend Developer (Node.js)",
-    company: "TechCorp",
+    title: "Графический Дизайнер",
+    company: "Eshe App",
     description:
-      "Разработка высоконагруженных API на Node.js. Оптимизация запросов к базе данных, интеграция с внешними сервисами.",
+      "Графический дизайнер для работы в тематике женского здоровья, благополучия женщин, косметики.",
     responsibilities:
-      "— Проектирование и разработка REST API\n— Оптимизация производительности\n— Работа с PostgreSQL и MongoDB\n— Code review и документация",
+      "— Подготовка маркетинговых презентаций и образовательных материалов\n— Подготовка материалов для соцсетей Instagram и LinkedIn\n— Подготовка дизайна печатных материалов для мероприятий\n— Создание визуальных материалов на основе готового контента по бренд-буку\n— Оформление обучающих чекапов, мини-курсов, подготовка контента в формате сториз внутри приложения\n— Подготовка макетов для веба и печати\n— Ведение задач и отчётности в LARK",
     requirements:
-      "— Опыт работы с Node.js от 2 лет\n— Знание TypeScript\n— Опыт с PostgreSQL и MongoDB\n— Понимание принципов REST API",
-    location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "development",
-    sub_sphere: "backend",
-    skills: ["Node.js", "TypeScript", "PostgreSQL", "MongoDB", "REST API"],
-    salary_min: 200000,
-    salary_max: 300000,
-    contact_tg: "HRTechCorp",
-    created_by: "BOT",
-  },
-  {
-    title: "Frontend Developer (React)",
-    company: "WebStudio",
-    description:
-      "Разработка интерфейсов для внутренних и внешних продуктов компании. Работа с современным стеком технологий.",
-    responsibilities:
-      "— Разработка новых компонентов и фич\n— Оптимизация производительности\n— Участие в код-ревью\n— Работа с дизайнерами",
-    requirements:
-      "— Опыт работы с React от 1 года\n— Знание TypeScript\n— Опыт с Next.js\n— Понимание CSS и HTML",
+      "— Опыт работы графическим дизайнером от 5 лет (НЕ фриланс)\n— Опыт работы с AI-инструментами (Midjourney)\n— Опыт работы с task-менеджерами\n— Способность выполнять задачи в рамках установленных сроков\n— Владение разговорным английским языком на уровне B2 или выше",
     location: "Удаленно",
-    experience_level: "junior",
-    job_type: "full-time",
+    experience_level: "senior",
+    job_type: "part-time",
     format: "remote",
-    sphere: "development",
-    sub_sphere: "frontend",
-    skills: ["React", "TypeScript", "Next.js", "CSS", "HTML"],
-    salary_min: 150000,
-    salary_max: 200000,
-    contact_tg: "HRWebStudio",
+    sphere: "design",
+    sub_sphere: "graphic",
+    skills: [
+      "Figma",
+      "Adobe Photoshop",
+      "Adobe Illustrator",
+      "Midjourney",
+      "Task Management",
+      "Print Design",
+      "Social Media Design",
+    ],
+    salary_min: 800,
+    salary_max: null,
+    salary_currency: "RUB",
+    contact_tg: "trixy1606",
     created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из UX_XU_BAZa)",
   },
   {
-    title: "iOS Developer",
-    company: "MobileApps",
+    title: "Web & Graphic Designer",
+    company: "Quadcode",
     description:
-      "Разработка нативных iOS приложений. Работа с новыми технологиями Apple, участие в полном цикле разработки.",
+      "Международная финтех-компания разрабатывает экосистему брокерских продуктов. Ищем опытного веб/графического дизайнера.",
     responsibilities:
-      "— Разработка новых фич\n— Рефакторинг существующего кода\n— Написание тестов\n— Code review",
+      "— Развитие и улучшение основного сайта бренда\n— Создание лендингов\n— Создание и поддержка дизайн-систем для веба\n— Дизайн баннеров и других цифровых маркетинговых материалов\n— Помощь в подготовке презентаций\n— Создание интерактивных прототипов\n— Адаптация макетов сайта под различные разрешения экранов",
     requirements:
-      "— Опыт разработки под iOS от 2 лет\n— Знание Swift и UIKit/SwiftUI\n— Понимание архитектурных паттернов\n— Опыт работы с REST API",
+      "— Уверенное владение Figma, Adobe Photoshop и Adobe Illustrator\n— Базовые знания HTML/CSS\n— Опыт работы веб-дизайнером от 3 лет\n— Глубокое понимание принципов UX/UI\n— Знание типографики, теории цвета и композиции",
     location: "Санкт-Петербург",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "office",
-    sphere: "development",
-    sub_sphere: "mobile",
-    skills: ["Swift", "UIKit", "SwiftUI", "REST API", "Git"],
-    salary_min: 250000,
-    salary_max: 350000,
-    contact_tg: "HRMobileApps",
-    created_by: "BOT",
-  },
-  {
-    title: "Product Manager",
-    company: "ProductLab",
-    description:
-      "Управление продуктовой разработкой. Анализ рынка, работа с требованиями, коммуникация с командой и стейкхолдерами.",
-    responsibilities:
-      "— Сбор и анализ требований\n— Формирование бэклога\n— Работа с командой разработки\n— Анализ метрик",
-    requirements:
-      "— Опыт работы Product Manager от 2 лет\n— Понимание Agile/Scrum\n— Аналитическое мышление\n— Английский от Intermediate",
-    location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "management",
-    sub_sphere: "product_manager",
-    skills: ["Agile", "Scrum", "Jira", "Аналитика", "English C1"],
-    salary_min: 300000,
-    salary_max: 400000,
-    contact_tg: "HRProductLab",
-    created_by: "BOT",
-  },
-  {
-    title: "QA Engineer",
-    company: "TestOps",
-    description:
-      "Ручное и автоматизированное тестирование веб-приложений. Участие в улучшении качества продуктов.",
-    responsibilities:
-      "— Составление тест-кейсов и чек-листов\n— Ручное тестирование\n— Написание автотестов\n— Регрессионное тестирование",
-    requirements:
-      "— Опыт тестирования от 1 года\n— Знание теории тестирования\n— Опыт с Postman\n— Базовые знания SQL",
-    location: "Удаленно",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "remote",
-    sphere: "testing",
-    sub_sphere: "qa_manual",
-    skills: ["Postman", "SQL", "Test Design", "Jira", "Git"],
-    salary_min: 120000,
-    salary_max: 160000,
-    contact_tg: "HRTestOps",
-    created_by: "BOT",
-  },
-  {
-    title: "DevOps Engineer",
-    company: "CloudInfra",
-    description:
-      "Поддержка и развитие инфраструктуры. Настройка CI/CD, работа с облачными провайдерами, контейнеризация.",
-    responsibilities:
-      "— Настройка CI/CD пайплайнов\n— Управление Kubernetes кластерами\n— Мониторинг и логирование\n— Автоматизация",
-    requirements:
-      "— Опыт работы DevOps от 2 лет\n— Знание Docker и Kubernetes\n— Опыт с AWS/GCP\n— Написание Terraform",
-    location: "Москва",
     experience_level: "senior",
     job_type: "full-time",
     format: "hybrid",
-    sphere: "devops",
-    sub_sphere: "devops",
-    skills: ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD"],
-    salary_min: 350000,
-    salary_max: 450000,
-    contact_tg: "HRCloudInfra",
+    sphere: "design",
+    sub_sphere: "web",
+    skills: [
+      "Figma",
+      "Adobe Photoshop",
+      "Adobe Illustrator",
+      "HTML",
+      "CSS",
+      "Webflow",
+      "Framer",
+      "Readymag",
+      "Typography",
+      "Composition",
+    ],
+    salary_min: 150000,
+    salary_max: 300000,
+    salary_currency: "RUB",
+    contact_tg: "vova_itrecruit",
     created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из UX_XU_BAZa)",
   },
   {
-    title: "Data Scientist",
-    company: "DataLab",
+    title: "UI/UX дизайнер",
+    company: "Quantum Dev",
     description:
-      "Разработка и внедрение моделей машинного обучения. Анализ данных, подготовка датасетов, эксперименты.",
+      "Компания по разработке мобильных и веб приложений для e-commerce и технологических стартапов. Также внутри компании разрабатываем свой IT-стартап.",
     responsibilities:
-      "— Исследование данных\n— Построение ML моделей\n— A/B тестирование\n— Визуализация результатов",
+      "— Проектировать интерфейсы мобильных приложений и веб-сайтов\n— Создавать UI-kit, компоненты и интерактивные прототипы в Figma\n— Работать в связке с отделом разработки над реализацией дизайна\n— Адаптировать дизайн под требования iOS, Android и веб-платформ с учётом гайдлайнов\n— Использовать AI-инструменты для оптимизации рабочих процессов",
     requirements:
-      "— Опыт работы Data Scientist от 1 года\n— Знание Python и библиотек\n— Понимание статистики\n— Опыт с SQL",
-    location: "Санкт-Петербург",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "data",
-    sub_sphere: "data_science",
-    skills: ["Python", "SQL", "Pandas", "Scikit-learn", "Jupyter"],
-    salary_min: 250000,
-    salary_max: 350000,
-    contact_tg: "HRDataLab",
-    created_by: "BOT",
-  },
-  {
-    title: "Системный аналитик",
-    company: "Analytica",
-    description:
-      "Анализ требований, проектирование архитектуры, написание технической документации, взаимодействие с командой.",
-    responsibilities:
-      "— Сбор и анализ требований\n— Проектирование API\n— Написание спецификаций\n— Коммуникация с командой",
-    requirements:
-      "— Опыт системного анализа от 1 года\n— Понимание REST API\n— Умение рисовать диаграммы\n— Техническое мышление",
+      "— Работал UX/UI дизайнером от 1,5 лет с мобильными приложениями и веб-сайтами\n— Знаешь гайдлайны iOS, Android и Material Design\n— Уверенно владеешь Figma: auto layout, свойства, UI-kit, переменные, интерактивные прототипы\n— Имеешь опыт работы с AI-инструментами в дизайне\n— Можешь объяснить логику своих дизайн-решений",
     location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "management",
-    sub_sphere: "analyst",
-    skills: ["REST API", "SQL", "Swagger", "BPMN", "UML"],
-    salary_min: 200000,
-    salary_max: 280000,
-    contact_tg: "HRAnalytica",
-    created_by: "BOT",
-  },
-  {
-    title: "Technical Writer",
-    company: "DocuTech",
-    description:
-      "Написание технической документации для разработчиков и пользователей. Ведение базы знаний, подготовка инструкций.",
-    responsibilities:
-      "— Написание API документации\n— Создание пользовательских гайдов\n— Ведение базы знаний\n— Редактура текстов",
-    requirements:
-      "— Опыт технического писателя от 1 года\n— Понимание REST API\n— Грамотный русский и английский\n— Внимательность к деталям",
-    location: "Удаленно",
     experience_level: "junior",
     job_type: "full-time",
     format: "remote",
-    sphere: "management",
-    sub_sphere: "technical_writer",
-    skills: ["API Documentation", "Markdown", "English C1", "Git", "Swagger"],
-    salary_min: 120000,
-    salary_max: 160000,
-    contact_tg: "HRDocuTech",
-    created_by: "BOT",
-  },
-  {
-    title: "Android Developer",
-    company: "MobileApps",
-    description:
-      "Разработка нативных Android приложений. Работа с Kotlin, современными библиотеками и архитектурами.",
-    responsibilities:
-      "— Разработка новых фич\n— Рефакторинг\n— Написание тестов\n— Участие в код-ревью",
-    requirements:
-      "— Опыт разработки под Android от 1 года\n— Знание Kotlin\n— Понимание MVVM\n— Опыт с REST API",
-    location: "Санкт-Петербург",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "office",
-    sphere: "development",
-    sub_sphere: "mobile",
-    skills: ["Kotlin", "Android SDK", "MVVM", "REST API", "Coroutines"],
-    salary_min: 220000,
-    salary_max: 300000,
-    contact_tg: "HRMobileApps",
-    created_by: "BOT",
-  },
-  {
-    title: "UI/UX Designer",
-    company: "DesignStudio",
-    description:
-      "Дизайн интерфейсов для мобильных и веб-приложений. Создание прототипов, работа с дизайн-системами.",
-    responsibilities:
-      "— Создание прототипов\n— Дизайн интерфейсов\n— Работа с дизайн-системой\n— Презентация решений",
-    requirements:
-      "— Опыт работы дизайнером от 1 года\n— Владение Figma\n— Понимание UX принципов\n— Портфолио",
-    location: "Москва",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "hybrid",
     sphere: "design",
-    sub_sphere: "design_product",
+    sub_sphere: "ux_ui",
     skills: [
       "Figma",
       "UI/UX",
+      "Mobile Design",
+      "Web Design",
+      "iOS Guidelines",
+      "Android Guidelines",
+      "Material Design",
+      "AI Tools",
       "Prototyping",
-      "User Research",
+    ],
+    salary_min: 60000,
+    salary_max: 80000,
+    salary_currency: "RUB",
+    contact_tg: "hrquantum",
+    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из UX_XU_BAZa)",
+  },
+  {
+    title: "Продуктовый дизайнер",
+    company: "BotConversa",
+    description:
+      "Международная платформа для автоматизации общения в WhatsApp. Помогаем компаниям создавать умные чат-боты.",
+    responsibilities:
+      "— Анализировать лучшие практики рынка, изучать пользовательский путь и формулировать гипотезы\n— Создавать прототипы, тестировать решения и улучшать их на основе обратной связи\n— Тесно взаимодействовать с разработчиками и менеджерами\n— Прорабатывать UX/UI для веб-продуктов компании\n— Участвовать в дизайн-ревью\n— Создавать новые компоненты дизайн-системы",
+    requirements:
+      "— Опыт работы продуктовым/UX/UI-дизайнером от 2 лет\n— Отличное понимание принципов дизайна и UX-паттернов\n— Практический опыт создания веб-интерфейсов\n— Умение вести задачу от исследования до финального результата\n— Уверенная работа в Figma (компоненты, auto-layout, прототипирование)\n— Портфолио с примерами реальных проектов",
+    location: "Удаленно",
+    experience_level: "middle",
+    job_type: "full-time",
+    format: "remote",
+    sphere: "design",
+    sub_sphere: "product",
+    skills: [
+      "Figma",
+      "UX/UI",
+      "Product Design",
+      "Prototyping",
       "Design Systems",
+      "User Research",
+      "SaaS Design",
     ],
-    salary_min: 150000,
-    salary_max: 200000,
-    contact_tg: "HRDesignStudio",
+    salary_min: 2000,
+    salary_max: 2500,
+    salary_currency: "USD",
+    contact_tg: "OrlisEvgeniya",
     created_by: "BOT",
-  },
-  {
-    title: "SEO-специалист",
-    company: "MarketingPro",
-    description:
-      "Оптимизация сайтов под поисковые системы. Анализ позиций, работа с контентом, внешняя оптимизация.",
-    responsibilities:
-      "— Аудит сайтов\n— Сбор семантики\n— Оптимизация контента\n— Анализ конкурентов",
-    requirements:
-      "— Опыт работы SEO от 1 года\n— Знание основных метрик\n— Опыт с инструментами\n— Понимание HTML/CSS",
-    location: "Удаленно",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "remote",
-    sphere: "marketing",
-    sub_sphere: "seo",
-    skills: [
-      "Google Analytics",
-      "Ahrefs",
-      "HTML",
-      "WordPress",
-      "Key Collector",
-    ],
-    salary_min: 80000,
-    salary_max: 120000,
-    contact_tg: "HRMarketingPro",
-    created_by: "BOT",
-  },
-  {
-    title: "Project Manager",
-    company: "PMO",
-    description:
-      "Управление проектами разработки. Планирование, контроль сроков, коммуникация с заказчиком и командой.",
-    responsibilities:
-      "— Планирование проектов\n— Контроль сроков\n— Управление рисками\n— Отчетность",
-    requirements:
-      "— Опыт управления проектами от 2 лет\n— Знание Agile\n— Опыт с Jira\n— Коммуникабельность",
-    location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "office",
-    sphere: "management",
-    sub_sphere: "project_manager",
-    skills: ["Jira", "Agile", "Scrum", "Risk Management", "English B2"],
-    salary_min: 250000,
-    salary_max: 350000,
-    contact_tg: "HRPMO",
-    created_by: "BOT",
-  },
-  {
-    title: "1C Разработчик",
-    company: "SoftService",
-    description:
-      "Разработка и доработка конфигураций 1С. Интеграция с внешними системами, оптимизация запросов.",
-    responsibilities:
-      "— Доработка конфигураций\n— Написание отчетов\n— Интеграции\n— Консультация пользователей",
-    requirements:
-      "— Опыт разработки 1С от 1 года\n— Знание платформы 8.3\n— Опыт с SQL\n— Понимание бухгалтерии",
-    location: "Санкт-Петербург",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "office",
-    sphere: "development",
-    sub_sphere: "1c",
-    skills: ["1С 8.3", "SQL", "Бухгалтерия", "Отчеты", "Обмены данными"],
-    salary_min: 130000,
-    salary_max: 180000,
-    contact_tg: "HRSoftService",
-    created_by: "BOT",
-  },
-  {
-    title: "SMM-менеджер",
-    company: "SocialBoost",
-    description:
-      "Ведение социальных сетей компании. Создание контента, анализ метрик, взаимодействие с аудиторией.",
-    responsibilities:
-      "— Планирование контента\n— Создание постов\n— Анализ метрик\n— Коммуникация с подписчиками",
-    requirements:
-      "— Опыт ведения соцсетей от 1 года\n— Умение писать тексты\n— Знание таргета\n— Креативность",
-    location: "Удаленно",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "remote",
-    sphere: "marketing",
-    sub_sphere: "smm",
-    skills: ["Instagram", "Telegram", "TikTok", "Canva", "SMM Planning"],
-    salary_min: 70000,
-    salary_max: 100000,
-    contact_tg: "HRSocialBoost",
-    created_by: "BOT",
-  },
-  {
-    title: "Product Analyst",
-    company: "DataLab",
-    description:
-      "Анализ продуктовых метрик, построение отчетов, проведение A/B тестов, работа с большими данными.",
-    responsibilities:
-      "— Сбор и анализ данных\n— Построение дашбордов\n— A/B тестирование\n— Формирование гипотез",
-    requirements:
-      "— Опыт аналитики от 1 года\n— Знание SQL\n— Опыт с Python\n— Понимание продуктовых метрик",
-    location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "data",
-    sub_sphere: "product_analyst",
-    skills: ["SQL", "Python", "Tableau", "A/B testing", "Product metrics"],
-    salary_min: 200000,
-    salary_max: 280000,
-    contact_tg: "HRDataLab",
-    created_by: "BOT",
-  },
-  {
-    title: "Java Developer",
-    company: "EnterpriseSoft",
-    description:
-      "Разработка корпоративных приложений на Java. Работа с микросервисами, Spring Boot, Hibernate.",
-    responsibilities:
-      "— Разработка новых фич\n— Рефакторинг\n— Написание тестов\n— Code review",
-    requirements:
-      "— Опыт работы с Java от 2 лет\n— Знание Spring Boot\n— Опыт с Hibernate\n— Понимание микросервисов",
-    location: "Москва",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "office",
-    sphere: "development",
-    sub_sphere: "backend",
-    skills: ["Java", "Spring Boot", "Hibernate", "PostgreSQL", "Kafka"],
-    salary_min: 280000,
-    salary_max: 380000,
-    contact_tg: "HREnterpriseSoft",
-    created_by: "BOT",
-  },
-  {
-    title: "HR-менеджер",
-    company: "PeopleFirst",
-    description:
-      "Полный цикл подбора персонала. Ведение кадрового учета, адаптация сотрудников, развитие HR-бренда.",
-    responsibilities:
-      "— Поиск и подбор кандидатов\n— Проведение интервью\n— Адаптация сотрудников\n— Ведение HR-документов",
-    requirements:
-      "— Опыт в HR от 1 года\n— Знание методов подбора\n— Коммуникабельность\n— Навык работы с HR-системами",
-    location: "Санкт-Петербург",
-    experience_level: "junior",
-    job_type: "full-time",
-    format: "hybrid",
-    sphere: "hr",
-    sub_sphere: "recruiter",
-    skills: [
-      "Recruiting",
-      "Interviewing",
-      "Onboarding",
-      "HR Docs",
-      "People Management",
-    ],
-    salary_min: 90000,
-    salary_max: 130000,
-    contact_tg: "HRPeopleFirst",
-    created_by: "BOT",
-  },
-  {
-    title: "QA Automation (Python)",
-    company: "TestOps",
-    description:
-      "Автоматизация тестирования на Python. Разработка и поддержка автотестов, интеграция в CI/CD.",
-    responsibilities:
-      "— Разработка автотестов\n— Интеграция в CI/CD\n— Анализ результатов\n— Оптимизация",
-    requirements:
-      "— Опыт автоматизации от 1 года\n— Знание Python и Pytest\n— Опыт с Selenium\n— Понимание CI/CD",
-    location: "Удаленно",
-    experience_level: "middle",
-    job_type: "full-time",
-    format: "remote",
-    sphere: "testing",
-    sub_sphere: "qa_auto",
-    skills: ["Python", "Pytest", "Selenium", "CI/CD", "Git"],
-    salary_min: 200000,
-    salary_max: 270000,
-    contact_tg: "HRTestOps",
-    created_by: "BOT",
+    source_url: "https://t.me/it_match_frontend/??? (из UX_XU_BAZa)",
   },
 ];
 
 async function addJob(job: Job): Promise<void> {
   return new Promise((resolve, reject) => {
+    // Формируем описание из responsibilities если оно пустое
+    const responsibilities = job.responsibilities || job.description;
+    const requirements =
+      job.requirements || "Требования уточняются на собеседовании";
+
     const jobData = {
       fields: {
         title: { stringValue: job.title },
         company: { stringValue: job.company },
         description: { stringValue: job.description },
-        responsibilities: { stringValue: job.responsibilities },
-        requirements: { stringValue: job.requirements },
+        responsibilities: { stringValue: responsibilities },
+        requirements: { stringValue: requirements },
         location: { stringValue: job.location },
         experience_level: { stringValue: job.experience_level },
         job_type: { stringValue: job.job_type },
@@ -500,11 +749,23 @@ async function addJob(job: Job): Promise<void> {
         salary_max: job.salary_max
           ? { integerValue: job.salary_max }
           : { nullValue: null },
+        salary_currency: job.salary_currency
+          ? { stringValue: job.salary_currency }
+          : { nullValue: null },
         contact_tg: { stringValue: job.contact_tg },
+        contact_email: job.contact_email
+          ? { stringValue: job.contact_email }
+          : { nullValue: null },
+        contact_phone: job.contact_phone
+          ? { stringValue: job.contact_phone }
+          : { nullValue: null },
         visible: { booleanValue: true },
         views: { integerValue: 0 },
         created_by: { stringValue: job.created_by },
         created_at: { timestampValue: new Date().toISOString() },
+        source_url: job.source_url
+          ? { stringValue: job.source_url }
+          : { nullValue: null },
       },
     };
 
@@ -553,13 +814,19 @@ async function addJob(job: Job): Promise<void> {
 }
 
 async function addAllJobs() {
-  console.log(`🚀 Начинаем добавление ${jobs.length} вакансий...\n`);
+  console.log(
+    `🚀 Начинаем добавление ${jobs.length} вакансий из документов...\n`,
+  );
 
   let successCount = 0;
   let errorCount = 0;
 
   for (let i = 0; i < jobs.length; i++) {
     const job = jobs[i];
+    console.log(
+      `[${i + 1}/${jobs.length}] Добавляем: ${job.title} (${job.company})`,
+    );
+
     try {
       await addJob(job);
       successCount++;
@@ -567,12 +834,31 @@ async function addAllJobs() {
       console.error(`❌ Ошибка при добавлении вакансии ${job.title}:`, error);
       errorCount++;
     }
+
+    // Небольшая задержка между запросами чтобы не перегружать API
+    if (i < jobs.length - 1) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
   }
 
   console.log(`\n📊 Итоги:`);
   console.log(`✅ Успешно добавлено: ${successCount}`);
   console.log(`❌ Ошибок: ${errorCount}`);
   console.log(`📝 Всего вакансий: ${jobs.length}`);
+
+  // Группировка по сферам
+  const bySphere = jobs.reduce(
+    (acc, job) => {
+      acc[job.sphere] = (acc[job.sphere] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
+
+  console.log(`\n📊 По сферам:`);
+  Object.entries(bySphere).forEach(([sphere, count]) => {
+    console.log(`   ${sphere}: ${count} вакансий`);
+  });
 }
 
 // Проверка наличия необходимых переменных окружения

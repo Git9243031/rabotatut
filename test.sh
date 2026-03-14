@@ -1,36 +1,41 @@
-cat > app/dynamic.ts << 'EOF'
-// Этот файл импортируй в любую страницу которая использует Firebase
-export const dynamic = 'force-dynamic'
-EOF
+cat > lib/firebaseAdmin.ts << 'EOF'
+import { getApps, initializeApp, cert, type App } from 'firebase-admin/app'
+import { getAuth }      from 'firebase-admin/auth'
+import { getFirestore } from 'firebase-admin/firestore'
 
-# И добавляем в layout.tsx чтобы применилось ко всему приложению
-cat > app/layout.tsx << 'EOF'
-import type { Metadata } from 'next'
-import './globals.css'
-import { ReduxProvider } from '@/components/layout/ReduxProvider'
-import { AuthProvider }  from '@/components/layout/AuthProvider'
-import { Navbar }        from '@/components/layout/Navbar'
+function getAdminApp(): App {
+  if (getApps().length > 0) return getApps()[0]
 
-export const dynamic = 'force-dynamic'
+  const rawKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY
+  if (!rawKey) throw new Error('FIREBASE_ADMIN_PRIVATE_KEY is not set')
 
-export const metadata: Metadata = {
-  title:       'ВакансияРФ — Работа в России',
-  description: 'Тысячи вакансий от лучших компаний России',
+  // Vercel иногда двойно экранирует — обрабатываем оба варианта
+  const privateKey = rawKey
+    .replace(/\\\\n/g, '\n')
+    .replace(/\\n/g, '\n')
+
+  return initializeApp({
+    credential: cert({
+      projectId:   process.env.FIREBASE_ADMIN_PROJECT_ID!,
+      clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL!,
+      privateKey,
+    }),
+  })
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="ru">
-      <body suppressHydrationWarning>
-        <ReduxProvider>
-          <AuthProvider>
-            <Navbar />
-            <main>{children}</main>
-          </AuthProvider>
-        </ReduxProvider>
-      </body>
-    </html>
-  )
+export function getAdminAuth() {
+  return getAuth(getAdminApp())
 }
+
+export function getAdminDb() {
+  return getFirestore(getAdminApp())
+}
+
+export const adminAuth = new Proxy({} as ReturnType<typeof getAuth>, {
+  get: (_, prop) => (getAdminAuth() as any)[prop],
+})
+
+export const adminDb = new Proxy({} as ReturnType<typeof getFirestore>, {
+  get: (_, prop) => (getAdminDb() as any)[prop],
+})
 EOF
-echo "✅ app/layout.tsx — force-dynamic глобально"
