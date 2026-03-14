@@ -4,8 +4,7 @@ import { FieldValue } from 'firebase-admin/firestore'
 
 const BOT_TOKEN  = process.env.TELEGRAM_BOT_TOKEN!
 const CHANNEL_ID = process.env.TELEGRAM_CHANNEL_ID!
-// Фолбэк если APP_URL не задан
-const APP_URL    = process.env.NEXT_PUBLIC_APP_URL || 'https://vacancy-ru.vercel.app'
+const APP_URL    = process.env.NEXT_PUBLIC_APP_URL || 'https://rabotatut-poyd.vercel.app'
 
 const SPHERE_RU: Record<string,string> = {
   it:'IT', design:'Дизайн', marketing:'Маркетинг', management:'Management',
@@ -26,7 +25,6 @@ function fmtSalary(min?: number, max?: number): string {
   return '💰 до ' + k(max!) + ' ₽'
 }
 
-// Экранирование для MarkdownV2
 function e(str: string): string {
   return String(str).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&')
 }
@@ -45,7 +43,7 @@ function buildMessage(job: any): string {
   if (job.location)         lines.push('📍 ' + e(job.location))
 
   const salary = fmtSalary(job.salary_min, job.salary_max)
-  if (salary) lines.push(e(salary).replace('💰', '💰'))
+  if (salary) lines.push(salary)
 
   if (job.sphere) lines.push('🎯 ' + e(SPHERE_RU[job.sphere] ?? job.sphere))
 
@@ -60,13 +58,9 @@ function buildMessage(job: any): string {
     lines.push(job.skills.slice(0, 8).map((s: string) => '`' + s + '`').join(' '))
   }
 
-  if (job.contact_tg) {
-    lines.push('')
-    lines.push('📩 Связаться: @' + e(job.contact_tg))
-  }
-
+  // Убрали контакт — только ссылка на вакансию с текстом "Связаться"
   lines.push('')
-  lines.push('[Подробнее →](' + APP_URL + '/jobs/' + job.id + ')')
+  lines.push('[Связаться →](' + APP_URL + '/jobs/' + job.id + ')')
 
   return lines.join('\n')
 }
@@ -108,7 +102,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, reason: 'telegram not configured' })
     }
 
-    // Проверяем настройку автопостинга
     const settingsSnap = await adminDb.collection('settings').doc('main').get()
     const settings     = settingsSnap.data()
 
