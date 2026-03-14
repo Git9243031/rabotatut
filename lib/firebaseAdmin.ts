@@ -8,10 +8,10 @@ function getAdminApp(): App {
   const rawKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY
   if (!rawKey) throw new Error('FIREBASE_ADMIN_PRIVATE_KEY is not set')
 
-  // Vercel иногда двойно экранирует — обрабатываем оба варианта
-  const privateKey = rawKey
-    .replace(/\\\\n/g, '\n')
-    .replace(/\\n/g, '\n')
+  // Vercel хранит \n как буквальные два символа — заменяем на реальный перенос
+  const privateKey = rawKey.includes('\\n')
+    ? rawKey.replace(/\\n/g, '\n')
+    : rawKey
 
   return initializeApp({
     credential: cert({
@@ -22,18 +22,12 @@ function getAdminApp(): App {
   })
 }
 
-export function getAdminAuth() {
-  return getAuth(getAdminApp())
-}
-
-export function getAdminDb() {
-  return getFirestore(getAdminApp())
-}
+export function getAdminAuth() { return getAuth(getAdminApp()) }
+export function getAdminDb()   { return getFirestore(getAdminApp()) }
 
 export const adminAuth = new Proxy({} as ReturnType<typeof getAuth>, {
   get: (_, prop) => (getAdminAuth() as any)[prop],
 })
-
 export const adminDb = new Proxy({} as ReturnType<typeof getFirestore>, {
   get: (_, prop) => (getAdminDb() as any)[prop],
 })

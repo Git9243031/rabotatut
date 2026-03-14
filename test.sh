@@ -1,43 +1,37 @@
-mkdir -p app/api/debug-admin && cat > app/api/debug-admin/route.ts << 'EOF'
-import { NextResponse } from 'next/server'
+cat > lib/firebaseAdmin.ts << 'EOF'
+import { getApps, initializeApp, cert, type App } from 'firebase-admin/app'
+import { getAuth }      from 'firebase-admin/auth'
+import { getFirestore } from 'firebase-admin/firestore'
 
-export async function GET() {
-  const results: any = {}
+function getAdminApp(): App {
+  if (getApps().length > 0) return getApps()[0]
 
-  // Проверяем env vars
-  results.projectId    = process.env.FIREBASE_ADMIN_PROJECT_ID ?? 'MISSING'
-  results.clientEmail  = process.env.FIREBASE_ADMIN_CLIENT_EMAIL ?? 'MISSING'
-  results.hasKey       = !!process.env.FIREBASE_ADMIN_PRIVATE_KEY
-  results.keyStart     = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.slice(0, 30) ?? 'MISSING'
-  results.keyHasRealNL = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.includes('\n') ?? false
-  results.keyHasEscNL  = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.includes('\\n') ?? false
-  results.botToken     = process.env.TELEGRAM_BOT_TOKEN ? process.env.TELEGRAM_BOT_TOKEN.slice(0, 10) + '...' : 'MISSING'
-  results.channelId    = process.env.TELEGRAM_CHANNEL_ID ?? 'MISSING'
+  const rawKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY
+  if (!rawKey) throw new Error('FIREBASE_ADMIN_PRIVATE_KEY is not set')
 
-  // Пробуем инициализировать Admin SDK
-  try {
-    const { getAdminDb } = await import('@/lib/firebaseAdmin')
-    const db = getAdminDb()
-    const snap = await db.collection('settings').doc('main').get()
-    results.firestoreOk       = true
-    results.settingsExists    = snap.exists
-    results.telegramAutopost  = snap.data()?.telegram_autopost_enabled ?? false
-  } catch (e: any) {
-    results.firestoreOk    = false
-    results.firestoreError = e.message
-  }
+  // Vercel хранит \n как буквальные два символа — заменяем на реальный перенос
+  const privateKey = rawKey.includes('\\n')
+    ? rawKey.replace(/\\n/g, '\n')
+    : rawKey
 
-  // Пробуем Telegram
-  try {
-    const res  = await fetch('https://api.telegram.org/bot' + process.env.TELEGRAM_BOT_TOKEN + '/getMe')
-    const data = await res.json()
-    results.telegramBotOk   = data.ok
-    results.telegramBotName = data.result?.username ?? 'unknown'
-  } catch (e: any) {
-    results.telegramBotOk    = false
-    results.telegramBotError = e.message
-  }
-
-  return NextResponse.json(results, { status: 200 })
+  return initializeApp({
+    credential: cert({
+      projectId:   process.env.FIREBASE_ADMIN_PROJECT_ID!,
+      clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL!,
+      privateKey,
+    }),
+  })
 }
+
+export function getAdminAuth() { return getAuth(getAdminApp()) }
+export function getAdminDb()   { return getFirestore(getAdminApp()) }
+
+export const adminAuth = new Proxy({} as ReturnType<typeof getAuth>, {
+  get: (_, prop) => (getAdminAuth() as any)[prop],
+})
+export const adminDb = new Proxy({} as ReturnType<typeof getFirestore>, {
+  get: (_, prop) => (getAdminDb() as any)[prop],
+})
 EOF
+
+git add . && git commit -m "fix env vars order + firebaseAdmin" && git push
