@@ -4,6 +4,8 @@ import { ReduxProvider } from '@/components/layout/ReduxProvider'
 import { AuthProvider }  from '@/components/layout/AuthProvider'
 import { Navbar }        from '@/components/layout/Navbar'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title:       'ВакансияРФ — Работа в России',
   description: 'Тысячи вакансий от лучших компаний России',
