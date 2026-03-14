@@ -1,3 +1,4 @@
+cat > app/auth/reset-password/page.tsx << 'EOF'
 'use client'
 import { Suspense } from 'react'
 import { useState, useEffect }        from 'react'
@@ -159,3 +160,5 @@ export default function ResetPasswordPage() {
     </Suspense>
   )
 }
+EOF
+echo "✅ app/auth/reset-password/page.tsx"
