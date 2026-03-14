@@ -1,4 +1,5 @@
 // Чтобы запустить скрипт npx ts-node --compiler-options '{"module":"CommonJS"}' scripts/seed-job.ts
+//*****************/
 import * as dotenv from "dotenv";
 import * as https from "https";
 
