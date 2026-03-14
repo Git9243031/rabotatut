@@ -13,12 +13,14 @@ const firebaseConfig = {
   measurementId:     process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
 }
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
+// Инициализируем только если есть apiKey — защита от SSR/билда
+const app = typeof window !== 'undefined' || firebaseConfig.apiKey
+  ? (getApps().length ? getApp() : initializeApp(firebaseConfig))
+  : null
 
-export const auth = getAuth(app)
-export const db   = getFirestore(app)
+export const auth = app ? getAuth(app) : null as any
+export const db   = app ? getFirestore(app) : null as any
 
-// Analytics только в браузере — isSupported() защищает от краша в SSR
 export const analytics = typeof window !== 'undefined'
-  ? isSupported().then(yes => yes ? getAnalytics(app) : null)
+  ? isSupported().then(yes => yes && app ? getAnalytics(app) : null)
   : null
