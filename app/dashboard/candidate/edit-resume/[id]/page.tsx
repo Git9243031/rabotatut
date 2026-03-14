@@ -1,5 +1,3 @@
-mkdir -p "app/dashboard/candidate/edit-resume/[id]"
-cat > "app/dashboard/candidate/edit-resume/[id]/page.tsx" << 'EOF'
 'use client'
 import { useRouter, useParams } from 'next/navigation'
 import { useForm }              from 'react-hook-form'
@@ -195,5 +193,3 @@ export default function EditResumePage() {
     </div>
   )
 }
-EOF
-echo "✅ app/dashboard/candidate/edit-resume/[id]/page.tsx"
