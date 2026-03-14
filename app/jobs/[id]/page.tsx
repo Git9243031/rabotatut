@@ -8,6 +8,7 @@ import {
   Lock, FileText, AlertCircle,
 } from 'lucide-react'
 import { jobsService }     from '@/services/jobs'
+import { getSettings }     from '@/services/settings'
 import { resumesService }  from '@/services/resumes'
 import { Spinner }         from '@/components/ui/Spinner'
 import { formatSalary, formatDate, cn } from '@/lib/utils'
@@ -130,12 +131,17 @@ export default function JobPage() {
   const [loading, setLoading]   = useState(true)
   const [copied, setCopied]     = useState(false)
   const [modal, setModal]       = useState<ModalType>(null)
-  const [checking, setChecking] = useState(false)
+  const [checking, setChecking]       = useState(false)
+  const [contactEnabled, setContactEnabled] = useState(true)
 
   useEffect(() => {
     if (!id) return
     ;(async () => {
-      const data = await jobsService.getJob(id)
+      const [data, settings] = await Promise.all([
+        jobsService.getJob(id),
+        getSettings(),
+      ])
+      setContactEnabled(settings?.contact_button_enabled ?? true)
       if (!data || !data.visible) { router.replace('/'); return }
       setJob(data)
       setLoading(false)
@@ -326,8 +332,8 @@ export default function JobPage() {
             {/* CTA */}
             <div className="bg-white rounded-[20px] border border-[#E5E7EB] p-5 space-y-3">
 
-              {/* Кнопка связаться — с проверкой доступа */}
-              <button
+              {/* Кнопка связаться — скрыта если contact_button_enabled = false */}
+              {contactEnabled && <button
                 onClick={handleContactClick}
                 disabled={checking || authLoading}
                 className="w-full h-11 bg-[#229ED9] hover:bg-[#1a8bbf] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-[12px] transition-colors flex items-center justify-center gap-2"
@@ -337,7 +343,7 @@ export default function JobPage() {
                   : <Send size={15} />
                 }
                 Связаться в Telegram
-              </button>
+              </button>}
 
               {/* Все вакансии в канале */}
               <a href={TG_CHANNEL} target="_blank" rel="noopener noreferrer"

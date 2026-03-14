@@ -69,5 +69,7 @@ export function settingsFromDoc(doc: DocumentSnapshot<DocumentData>): Settings {
     header_enabled:            d.header_enabled            ?? true,
     auto_approve_jobs:         d.auto_approve_jobs         ?? false,
     auto_approve_telegram:     d.auto_approve_telegram     ?? false,
+    // По умолчанию true — кнопка показывается
+    contact_button_enabled:    d.contact_button_enabled    ?? true,
   }
 }

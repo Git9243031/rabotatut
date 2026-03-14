@@ -59,6 +59,7 @@ export default function AdminDashboard() {
     header_enabled:            true,
     auto_approve_jobs:         false,
     auto_approve_telegram:     false,
+    contact_button_enabled:    true,
   })
   const [loading, setLoading]     = useState(true)
   const [exporting, setExporting] = useState<string | null>(null)
@@ -506,6 +507,12 @@ export default function AdminDashboard() {
                   label: 'Авто-постинг без проверки',
                   desc:  'Постить в Telegram сразу после публикации',
                   icon:  settings.auto_approve_telegram ? CheckCircle : XCircle,
+                },
+                {
+                  key:   'contact_button_enabled' as const,
+                  label: 'Кнопка «Связаться»',
+                  desc:  'Показывать кнопку связи на страницах вакансий и резюме',
+                  icon:  settings.contact_button_enabled ? CheckCircle : XCircle,
                 },
               ] as const).map(({ key, label, desc }) => (
                 <div key={key} className="flex items-center justify-between gap-4">

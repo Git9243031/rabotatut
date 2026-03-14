@@ -10,26 +10,28 @@ export interface User {
 }
 export interface Job {
   id: string; title: string; company: string; description: string
-  responsibilities?: string
-  requirements?: string
+  responsibilities?: string; requirements?: string
   salary_min?: number; salary_max?: number; location?: string
   sphere?: Sphere; sub_sphere?: string
   experience_level?: Level; job_type?: JobType; format?: Format
   skills: string[]; created_by?: string; visible: boolean
-  created_at: string; views?: number
-  contact_tg?: string
+  created_at: string; views?: number; contact_tg?: string
 }
 export interface Resume {
   id: string; user_id: string; name: string; title: string; bio?: string
   sphere?: Sphere; sub_sphere?: string
   skills: string[]; experience_years: number
   portfolio?: string; location?: string; expected_salary?: number
-  format?: string; visible: boolean; created_at: string
-  contact_tg?: string
+  format?: string; visible: boolean; created_at: string; contact_tg?: string
 }
 export interface Settings {
-  id: string; telegram_autopost_enabled: boolean; header_enabled: boolean
-  auto_approve_jobs?: boolean; auto_approve_telegram?: boolean
+  id: string
+  telegram_autopost_enabled: boolean
+  header_enabled:            boolean
+  auto_approve_jobs:         boolean
+  auto_approve_telegram:     boolean
+  // Новая настройка — показывать кнопку Связаться (по умолчанию true)
+  contact_button_enabled:    boolean
 }
 export interface JobFilters {
   q?: string; sphere?: string; subSphere?: string; level?: string

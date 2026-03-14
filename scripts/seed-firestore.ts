@@ -21,8 +21,9 @@ async function seed() {
     header_enabled:            true,
     auto_approve_jobs:         false,
     auto_approve_telegram:     false,
+    contact_button_enabled:    true,
   }, { merge: true })
-  console.log('✅ settings/main — создан')
+  console.log('✅ settings/main — обновлён')
   console.log('🎉 Готово!')
   process.exit(0)
 }
