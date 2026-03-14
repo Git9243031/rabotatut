@@ -1,4 +1,3 @@
-mkdir -p app/api/debug-admin && cat > app/api/debug-admin/route.ts << 'EOF'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
@@ -40,4 +39,3 @@ export async function GET() {
 
   return NextResponse.json(results, { status: 200 })
 }
-EOF
